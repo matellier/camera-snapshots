@@ -10,7 +10,7 @@ Full project notes: `~/Vaults/obsidian-ai/01-Projects/camera-snapshots.md`
 
 - Raspberry Pi 4 (4GB RAM)
 - Official 7" DSI touchscreen display
-- Logitech USB webcam (046d:0825) → `/dev/video1` (video0 absent on this RPi)
+- Logitech USB webcam (046d:0825) → `/dev/video0` (video1 is the UVC metadata node)
 - Synology NAS mounted via NFS at `/mnt/nas/camera-snapshots`
 
 ## OS
