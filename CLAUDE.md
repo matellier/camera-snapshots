@@ -10,7 +10,7 @@ Full project notes: `~/Vaults/obsidian-ai/01-Projects/camera-snapshots.md`
 
 - Raspberry Pi 4 (4GB RAM)
 - Official 7" DSI touchscreen display
-- Logitech USB webcam (046d:0825) → `/dev/video0`
+- Logitech USB webcam (046d:0825) → `/dev/video1` (video0 absent on this RPi)
 - Synology NAS mounted via NFS at `/mnt/nas/camera-snapshots`
 
 ## OS
@@ -33,6 +33,7 @@ Raspberry Pi OS (64-bit) Debian Trixie Desktop
 
 ```
 main.py                  # Entry point — launches GUI
+start.sh                 # Launch script for RPi4 (sets Wayland env)
 ui/
   main_window.py         # Main window: preview + controls
   preview.py             # OpenCV → QPixmap live feed widget
@@ -62,13 +63,24 @@ SSH access: `ssh rpi4` (configured in `~/.ssh/config` using `id_ed25519_ansible`
 - Config is persisted in `config.json` (excluded from git)
 - No root/sudo required at runtime; NFS mount is configured at OS level in `/etc/fstab`
 
+## Running on RPi4
+
+```bash
+# Start (from any terminal on the RPi4)
+~/camera-snapshots/start.sh
+
+# Stop — close the window, or Ctrl+C in the terminal
+```
+
+The `start.sh` script sets `WAYLAND_DISPLAY` and `XDG_RUNTIME_DIR` automatically.
+
 ## Development
 
 ```bash
 # Install dependencies (on RPi or dev machine)
 pip install -r requirements.txt
 
-# Run the application
+# Run the application (dev machine, if display available)
 python main.py
 ```
 

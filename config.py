@@ -4,7 +4,7 @@ import os
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config.json")
 
 DEFAULTS = {
-    "camera_index": 0,
+    "camera_index": 1,
     "interval_minutes": 15,
     "start_time": "07:00",
     "stop_time": "19:00",

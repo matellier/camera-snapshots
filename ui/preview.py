@@ -12,7 +12,7 @@ class PreviewWidget(QLabel):
         super().__init__(parent)
         self._camera = camera
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.setMinimumSize(640, 360)
+        self.setMinimumSize(320, 180)
         self.setStyleSheet("background-color: black;")
 
         self._timer = QTimer(self)
@@ -43,5 +43,6 @@ class PreviewWidget(QLabel):
 def _frame_to_pixmap(frame: np.ndarray) -> QPixmap:
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     h, w, ch = rgb.shape
-    img = QImage(rgb.data, w, h, ch * w, QImage.Format.Format_RGB888)
+    # Use tobytes() to copy data — QImage doesn't own the buffer otherwise
+    img = QImage(rgb.tobytes(), w, h, ch * w, QImage.Format.Format_RGB888)
     return QPixmap.fromImage(img)
