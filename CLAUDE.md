@@ -74,6 +74,20 @@ SSH access: `ssh rpi4` (configured in `~/.ssh/config` using `id_ed25519_ansible`
 
 The `start.sh` script sets `WAYLAND_DISPLAY` and `XDG_RUNTIME_DIR` automatically.
 
+## Deploying Updates
+
+RPi4 runs from a git clone of `git@github.com:matellier/camera-snapshots.git`.
+
+```bash
+# From dev machine — commit and push
+git add <files> && git commit -m "..." && git push
+
+# On RPi4 — pull latest
+ssh rpi4 "git -C ~/camera-snapshots pull"
+```
+
+`config.json` is gitignored and lives only on the RPi4 — never overwritten by pulls.
+
 ## Development
 
 ```bash
