@@ -60,6 +60,6 @@ def _burn_timestamp(frame: np.ndarray, ts: datetime) -> None:
 
     # Shadow for legibility on any background
     cv2.putText(frame, text, (x + shadow_offset, y + shadow_offset),
-                font, scale, (0, 0, 0), thickness + 1, cv2.LINE_AA)
+                font, scale, (0, 0, 0), thickness + 2, cv2.LINE_AA)
     cv2.putText(frame, text, (x, y),
-                font, scale, (255, 255, 255), thickness, cv2.LINE_AA)
+                font, scale, (0, 165, 255), thickness + 1, cv2.LINE_AA)
