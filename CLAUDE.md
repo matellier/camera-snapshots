@@ -10,8 +10,28 @@ Full project notes: `~/Vaults/obsidian-ai/01-Projects/camera-snapshots.md`
 
 - Raspberry Pi 4 (4GB RAM)
 - Official 7" DSI touchscreen display
-- Logitech USB webcam (046d:0825) → `/dev/video0` (video1 is the UVC metadata node)
+- Logitech C270 webcam (046d:0825) → `/dev/video0` (video1 is UVC metadata)
+- YOHOOLYO FHD Camera (1bcf:2281) → `/dev/video2` (video3 is UVC metadata)
 - Synology NAS mounted via NFS at `/mnt/nas/camera-snapshots`
+
+## RPi4 USB Port Layout
+
+```
+                 ┌─────────────────────────────────────┐
+                 │  ┌──────────┐  ┌──────────────────┐ │
+                 │  │  USB 3.0 │  │     USB 2.0      │ │
+                 │  │ (empty)  │  │  path 1-1.2      │ │  ← Logitech C270   /dev/video0
+                 │  │──────────│  │──────────────────│ │
+                 │  │  USB 3.0 │  │     USB 2.0      │ │
+                 │  │ (empty)  │  │  path 1-1.4      │ │  ← YOHOOLYO FHD    /dev/video2
+                 │  └──────────┘  └──────────────────┘ │
+                 │    (blue)            (black)          │
+                 └─────────────────────────────────────┘
+```
+
+Both cameras are USB 2.0 devices (max 480 Mbps). USB 3.0 ports are unused.
+Plugging cameras into the same physical ports ensures stable device indices across reboots.
+Max resolutions: Logitech C270 → 1280×960 | YOHOOLYO FHD → 1920×1080
 
 ## OS
 
