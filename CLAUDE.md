@@ -10,8 +10,8 @@ Full project notes: `~/Vaults/obsidian-ai/01-Projects/camera-snapshots.md`
 
 - Raspberry Pi 4 (4GB RAM)
 - Official 7" DSI touchscreen display
+- YOHOOLYO FHD Camera (1bcf:2281) → `/dev/video2` (video3 is UVC metadata) ← **active**
 - Logitech C270 webcam (046d:0825) → `/dev/video0` (video1 is UVC metadata)
-- YOHOOLYO FHD Camera (1bcf:2281) → `/dev/video2` (video3 is UVC metadata)
 - Synology NAS mounted via NFS at `/mnt/nas/camera-snapshots`
 
 ## RPi4 USB Port Layout
