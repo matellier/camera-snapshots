@@ -20,6 +20,11 @@ class Camera:
             self._cap.release()
             self._cap = None
 
+    def switch(self, index: int) -> bool:
+        self.close()
+        self._index = index
+        return self.open()
+
     @property
     def is_open(self) -> bool:
         return self._cap is not None and self._cap.isOpened()

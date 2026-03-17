@@ -68,6 +68,18 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
         layout.setSpacing(10)
 
+        # --- Camera selection ---
+        cam_group = QGroupBox("Camera")
+        cam_form = QFormLayout(cam_group)
+
+        self._camera_spin = QSpinBox()
+        self._camera_spin.setRange(0, 9)
+        self._camera_spin.setValue(self._config["camera_index"])
+        self._camera_spin.valueChanged.connect(self._switch_camera)
+        cam_form.addRow("Index", self._camera_spin)
+
+        layout.addWidget(cam_group)
+
         # --- Scheduler settings ---
         group = QGroupBox("Scheduler")
         form = QFormLayout(group)
@@ -127,6 +139,15 @@ class MainWindow(QMainWindow):
     # Camera
     # ------------------------------------------------------------------
 
+    def _switch_camera(self, index: int) -> None:
+        self._preview.stop()
+        if self._camera.switch(index):
+            self._preview.start()
+            self._config["camera_index"] = index
+            cfg.save(self._config)
+        else:
+            self._set_status(f"Camera {index} not found")
+
     def _open_camera(self) -> None:
         if self._camera.open():
             self._preview.start()
@@ -173,7 +194,7 @@ class MainWindow(QMainWindow):
         self._update_nas_status()
 
         # Lock settings while running
-        for w in (self._start_edit, self._stop_edit,
+        for w in (self._camera_spin, self._start_edit, self._stop_edit,
                   self._interval_spin, self._days_spin):
             w.setEnabled(False)
 
@@ -185,7 +206,7 @@ class MainWindow(QMainWindow):
         self._toggle_btn.setText("Start")
         self._set_status("Stopped")
 
-        for w in (self._start_edit, self._stop_edit,
+        for w in (self._camera_spin, self._start_edit, self._stop_edit,
                   self._interval_spin, self._days_spin):
             w.setEnabled(True)
 
