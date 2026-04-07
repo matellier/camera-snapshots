@@ -13,7 +13,7 @@ class Scheduler:
         start_time: str,   # "HH:MM"
         stop_time: str,    # "HH:MM"
         on_capture: Callable[[], None],
-        on_day_end: Callable[[str], None],  # receives date_str "YYYYMMDD"
+        on_day_end: Callable[[str], None],  # receives date_str "YYYY-MM-DD"
     ):
         self._interval = interval_minutes * 60
         self._start = _parse_time(start_time)
@@ -59,7 +59,7 @@ class Scheduler:
             else:
                 # Window just closed — trigger day-end processing once
                 if self._active_date == today and current_time >= self._stop:
-                    self._on_day_end(today.strftime("%Y%m%d"))
+                    self._on_day_end(today.strftime("%Y-%m-%d"))
                     self._active_date = None
 
                 # Sleep briefly and poll again

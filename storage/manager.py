@@ -11,7 +11,7 @@ class StorageManager:
 
     def today_dir(self) -> str:
         """Return local photo directory for today, creating it if needed."""
-        path = os.path.join(self._photos_dir, datetime.now().strftime("%Y%m%d"))
+        path = os.path.join(self._photos_dir, datetime.now().strftime("%Y-%m-%d"))
         os.makedirs(path, exist_ok=True)
         return path
 
@@ -34,7 +34,7 @@ class StorageManager:
             if not entry.is_dir():
                 continue
             try:
-                folder_date = datetime.strptime(entry.name, "%Y%m%d")
+                folder_date = datetime.strptime(entry.name, "%Y-%m-%d")
             except ValueError:
                 continue
             if folder_date < cutoff:
